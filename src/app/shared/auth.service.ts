@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/compat/auth'
 import { Router } from '@angular/router';
+import {GoogleAuthProvider,GithubAuthProvider,FacebookAuthProvider} from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,7 @@ register(email:string,password:string){
     }, err=>{
       alert(err.message);
       this.router.navigate(['/register']);
+      
     }
   )
 }
@@ -55,5 +57,31 @@ logout(){
 //   })
 
 // }
+
+// signin with google
+googleSignIn(){
+  return this.fireauth.signInWithPopup(new GoogleAuthProvider).then(res=>{
+
+    this.router.navigate(['/deshboard']);
+    localStorage.setItem('token',JSON.stringify(res.user?.uid));
+
+
+  },err =>{
+    alert(err.message);
+  }
+  )
+}
+
+// sign in with facebook
+
+facebookSignIn(){
+  return this.fireauth.signInWithPopup(new FacebookAuthProvider).then(res=>{
+    this.router.navigate(['/deshboard']);
+    localStorage.setItem('token',JSON.stringify(res.user?.uid));
+
+  },err=>{
+    alert(err.message);
+  } )
+}
 
 }

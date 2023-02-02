@@ -34,4 +34,14 @@ this.password='';
 
   }
 
+
+  signingoogle(){
+    this.auth.googleSignIn();
+
+  }
+
+  facebooksignin(){
+    this.auth.facebookSignIn();
+  }
+
 }
